@@ -35,3 +35,5 @@ urlpatterns += [
     path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book_update'),
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book_delete'),
 ]
+
+urlpatterns += [ url(r'^register/$', views.RegisterFormView.as_view(), name='register'),]

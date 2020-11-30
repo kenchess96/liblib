@@ -105,7 +105,7 @@ from catalog.models import Author
 class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
-    initial = {'date_of_death': '05/01/2018'}
+    initial = {'date_of_death': '18/01/2020'}
 
 class AuthorUpdate(UpdateView):
     model = Author
@@ -131,3 +131,20 @@ class BookDelete(DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'catalog.can_mark_returned'
+
+
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
+
+class RegisterFormView(FormView):
+    form_class = UserCreationForm
+    success_url = '/accounts/login/?next=/catalog/'
+    template_name = "register.html"
+
+    def form_valid(self, form):
+        # Создаём пользователя, если данные в форму были введены корректно.
+        form.save()
+        # Вызываем метод базового класса
+        return super(RegisterFormView, self).form_valid(form)
+    def form_invalid(self, form):
+        return super(RecursionError, self).form_invalid(form)

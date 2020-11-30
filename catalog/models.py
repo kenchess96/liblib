@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from django.db import DatabaseError, transaction
 
 class Genre(models.Model):
     name = models.CharField(
@@ -35,6 +35,7 @@ class Book(models.Model):
 
     display_genre.short_description = 'Genre'
 
+    
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
 
